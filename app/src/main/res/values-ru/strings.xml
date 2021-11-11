@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Кодер</string>
+    <string name="Search_label">Введи имя, тег, почту</string>
+    <string name="cancel">Отмена</string>
+    <string name="Some_kind">Какой-то сверхразум все сломал</string>
+    <string name="fix_it_quickly">Постараемся быстро починить</string>
+    <string name="Try_again">Попробовать снова</string>
+    <string name="We_didn">Мы никого не нашли</string>
+    <string name="Try_to_correct">Попробуй скорректировать запрос</string>
 </resources>

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Coder</string>
+    <string name="Search_label" >Search</string>
+    <string name="cancel">Cancel</string>
+    <string name="Some_kind">Some kind of superintelligence broke it all</string>
+    <string name="fix_it_quickly">We will try to fix it quickly</string>
+    <string name="Try_again">Try again</string>
+    <string name="We_didn">We didn\'t find anyone</string>
+    <string name="Try_to_correct">Try to correct your request</string>
+    <string name="Sort" translatable="false">Sort</string>
+    <string name="saucer" translatable="false">saucer</string>
+    <string name="glass" translatable="false">glass</string>
 </resources>
