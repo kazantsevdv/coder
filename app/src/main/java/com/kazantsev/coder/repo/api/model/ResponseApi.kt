@@ -1,4 +1,4 @@
-package com.kazantsev.coder.model
+package com.kazantsev.coder.repo.api.model
 
 import com.google.gson.annotations.SerializedName
 
