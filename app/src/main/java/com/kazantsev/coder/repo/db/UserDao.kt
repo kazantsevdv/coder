@@ -14,7 +14,7 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUsers(posts: List<UsersDb>)
 
-    @Query("SELECT * FROM users ORDER BY firstName ASC")
+    @Query("SELECT * FROM users ORDER BY name ASC")
      suspend fun getAllUsers(): List<UsersDb>
 
 }

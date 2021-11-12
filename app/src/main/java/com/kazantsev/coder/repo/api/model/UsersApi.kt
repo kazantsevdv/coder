@@ -2,6 +2,10 @@ package com.kazantsev.coder.repo.api.model
 
 import com.google.gson.annotations.SerializedName
 import com.kazantsev.coder.repo.db.model.UsersDb
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
 
 data class UsersApi(
     @SerializedName("id") val id: String,
@@ -16,6 +20,7 @@ data class UsersApi(
 )
 
 fun UsersApi.toUsersDb(): UsersDb {
+    val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     return UsersDb(
         id = id,
         avatarUrl = avatarUrl,
@@ -23,7 +28,7 @@ fun UsersApi.toUsersDb(): UsersDb {
         userTag = userTag,
         department = department,
         position = position,
-        birthday = birthday,
-        phone = phone
+        birthday = try{format.parse(birthday)?.time?:0}catch (e:Exception){0},
+        phone = phone.filter { it!='-' }
     )
 }

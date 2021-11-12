@@ -11,20 +11,16 @@ import javax.inject.Singleton
         AppModule::class,
         ApiModule::class,
         DbModule::class,
-        RepoModule::class
+        RepoModule::class,
+        ImageModule::class
     ]
 )
 interface AppComponent {
     fun inject(fragment: MainActivity)
 
-
     @Component.Builder
-     interface Builder {
-
+    interface Builder {
         fun build(): AppComponent
-
-
-       fun application(application: AppModule): Builder
+        fun application(application: AppModule): Builder
     }
-
 }

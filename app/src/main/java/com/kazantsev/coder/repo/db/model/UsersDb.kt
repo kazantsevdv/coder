@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 @Entity(tableName = "users")
 data class UsersDb(
@@ -14,6 +15,6 @@ data class UsersDb(
     @ColumnInfo(name = "userTag") val userTag: String,
     @ColumnInfo(name = "department") val department: String,
     @ColumnInfo(name = "position") val position: String,
-    @ColumnInfo(name = "birthday") val birthday: String,
+    @ColumnInfo(name = "birthday") val birthday: Long,
     @ColumnInfo(name = "phone") val phone: String
 )
