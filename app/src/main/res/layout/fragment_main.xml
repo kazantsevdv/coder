@@ -22,22 +22,21 @@
 
     </androidx.viewpager.widget.ViewPager>
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+>
 
 
             <com.google.android.material.textfield.TextInputLayout
+
                 android:id="@+id/textField"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/search_margin_top"
-                android:layout_marginStart="@dimen/search_margin"
+                android:layout_marginHorizontal="@dimen/search_margin"
                 app:boxBackgroundColor="@color/gray"
                 app:boxCornerRadiusBottomEnd="@dimen/search_radius"
                 app:boxCornerRadiusBottomStart="@dimen/search_radius"
@@ -47,10 +46,12 @@
                 app:layout_constraintEnd_toStartOf="@+id/bt_cancel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 app:startIconDrawable="@drawable/ic_search"
-                app:style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:boxStrokeWidthFocused="1dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+
                     android:id="@+id/et_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -64,7 +65,7 @@
                 android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textField"
-                app:layout_constraintEnd_toStartOf="@+id/bt_cancel"
+                app:layout_constraintEnd_toEndOf="@+id/textField"
                 app:layout_constraintTop_toTopOf="@+id/textField"
                 app:srcCompat="@drawable/ic_sort"
                 android:contentDescription="@string/Sort" />
@@ -82,7 +83,7 @@
                 app:layout_constraintTop_toTopOf="@+id/textField" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+
 
     <LinearLayout
         android:id="@+id/lo_error"

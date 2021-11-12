@@ -1,8 +1,9 @@
 package com.kazantsev.coder.di
 
-import androidx.viewbinding.BuildConfig
+
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.kazantsev.coder.BuildConfig
 import com.kazantsev.coder.repo.api.DataSource
 import dagger.Module
 import dagger.Provides
@@ -49,8 +50,7 @@ class ApiModule {
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level =
-                    HttpLoggingInterceptor.Level.BODY
-//                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+                    if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
             })
             .addInterceptor(HeaderInterceptor())
             .build()
