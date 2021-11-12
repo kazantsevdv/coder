@@ -14,4 +14,5 @@
     <string name="photo" translatable="false">Photo</string>
     <string name="favorite" translatable="false">Favorite</string>
     <string name="phone" translatable="false">Phone</string>
+    <string name="line">line</string>
 </resources>

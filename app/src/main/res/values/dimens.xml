@@ -22,4 +22,16 @@
     <dimen name="details_years_margin_end">16dp</dimen>
     <dimen name="details_favorite_margin_top">24dp</dimen>
     <dimen name="details_favorite_margin_start">16dp</dimen>
+    <dimen name="item_img_size">72dp</dimen>
+    <dimen name="item_margin_vert">8dp</dimen>
+    <dimen name="item_margin_start">16dp</dimen>
+    <dimen name="item_name_size">16sp</dimen>
+    <dimen name="item_name_margin_start">8dp</dimen>
+    <dimen name="item_nik_margin_start">4dp</dimen>
+    <dimen name="item_nik_size">14sp</dimen>
+    <dimen name="item_pisition_size">13sp</dimen>
+    <dimen name="item_birthday_size">15sp</dimen>
+    <dimen name="item_birthday_margin_end">20dp</dimen>
+    <dimen name="item_year_size">15sp</dimen>
+    <dimen name="item_year_margin">24dp</dimen>
 </resources>
