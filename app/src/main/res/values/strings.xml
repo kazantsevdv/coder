@@ -10,4 +10,8 @@
     <string name="Sort" translatable="false">Sort</string>
     <string name="saucer" translatable="false">saucer</string>
     <string name="glass" translatable="false">glass</string>
+    <string name="back" translatable="false">Back</string>
+    <string name="photo" translatable="false">Photo</string>
+    <string name="favorite" translatable="false">Favorite</string>
+    <string name="phone" translatable="false">Phone</string>
 </resources>

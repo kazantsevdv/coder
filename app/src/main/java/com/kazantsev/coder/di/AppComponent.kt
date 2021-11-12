@@ -1,8 +1,6 @@
 package com.kazantsev.coder.di
 
-import android.app.Application
-import com.kazantsev.coder.MainActivity
-import dagger.BindsInstance
+import com.kazantsev.coder.view.MainActivity
 import dagger.Component
 import javax.inject.Singleton
 

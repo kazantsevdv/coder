@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,8 +9,12 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="0dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
@@ -23,66 +27,67 @@
     </androidx.viewpager.widget.ViewPager>
 
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/textField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
->
+            android:layout_marginHorizontal="@dimen/search_margin"
+            android:layout_marginTop="@dimen/search_margin_top"
+            app:boxBackgroundColor="@color/gray"
+            app:boxCornerRadiusBottomEnd="@dimen/search_radius"
+            app:boxCornerRadiusBottomStart="@dimen/search_radius"
+            app:boxCornerRadiusTopEnd="@dimen/search_radius"
+            app:boxCornerRadiusTopStart="@dimen/search_radius"
+            app:boxStrokeWidthFocused="1dp"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toStartOf="@+id/bt_cancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_search">
 
+            <com.google.android.material.textfield.TextInputEditText
 
-            <com.google.android.material.textfield.TextInputLayout
-
-                android:id="@+id/textField"
-                android:layout_width="0dp"
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/search_margin_top"
-                android:layout_marginHorizontal="@dimen/search_margin"
-                app:boxBackgroundColor="@color/gray"
-                app:boxCornerRadiusBottomEnd="@dimen/search_radius"
-                app:boxCornerRadiusBottomStart="@dimen/search_radius"
-                app:boxCornerRadiusTopEnd="@dimen/search_radius"
-                app:boxCornerRadiusTopStart="@dimen/search_radius"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toStartOf="@+id/bt_cancel"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                app:startIconDrawable="@drawable/ic_search"
-                app:boxStrokeWidthFocused="1dp">
+                android:hint="@string/Search_label" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
+        <ImageView
+            android:id="@+id/bt_sort"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/Sort"
+            app:layout_constraintBottom_toBottomOf="@+id/textField"
+            app:layout_constraintEnd_toEndOf="@+id/textField"
+            app:layout_constraintTop_toTopOf="@+id/textField"
+            app:srcCompat="@drawable/ic_sort" />
 
-                    android:id="@+id/et_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/Search_label"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/bt_cancel"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textField" />
 
-            <ImageView
-                android:id="@+id/bt_sort"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textField"
-                app:layout_constraintEnd_toEndOf="@+id/textField"
-                app:layout_constraintTop_toTopOf="@+id/textField"
-                app:srcCompat="@drawable/ic_sort"
-                android:contentDescription="@string/Sort" />
-
-            <Button
-                android:id="@+id/bt_cancel"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cancel"
-                android:textAllCaps="false"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textField" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <LinearLayout
@@ -148,4 +153,4 @@
     </LinearLayout>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

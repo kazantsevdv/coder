@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/detail_header_height"
+        android:background="@color/detail_gray"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/img_back_margin"
+        android:layout_marginTop="@dimen/img_back_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_back"
+        android:contentDescription="@string/back" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/detail_img_size"
+        android:layout_height="@dimen/detail_img_size"
+        android:layout_marginTop="@dimen/img_back_margin"
+
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19999999"
+        app:srcCompat="@drawable/flying_saucer"
+        android:contentDescription="@string/photo" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/details_name_size"
+
+        app:layout_constraintBottom_toTopOf="@+id/tv_position"
+        app:layout_constraintEnd_toStartOf="@+id/tv_nik"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Алиса Иванова" />
+
+    <TextView
+        android:id="@+id/tv_nik"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/details_nik_margin"
+        android:textSize="@dimen/details_nik_size"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_name"
+        app:layout_constraintTop_toTopOf="@+id/tv_name"
+        tools:text="ai" />
+
+    <TextView
+        android:id="@+id/tv_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/details_position_size"
+        android:layout_marginTop="@dimen/details_position_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"
+        tools:text="Designer" />
+
+    <ImageView
+        android:id="@+id/iv_favorite"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/details_favorite_margin_top"
+        android:layout_marginStart="@dimen/details_favorite_margin_start"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:srcCompat="@drawable/ic_favorite"
+        android:contentDescription="@string/favorite" />
+
+    <TextView
+        android:id="@+id/tv_birthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/details_margin_start"
+        android:textSize="@dimen/detail_text_siz_med"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_favorite"
+        app:layout_constraintStart_toEndOf="@+id/iv_favorite"
+        app:layout_constraintTop_toTopOf="@+id/iv_favorite"
+        tools:text="5 июня 1996" />
+
+    <TextView
+        android:id="@+id/tv_years"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/detail_text_siz_med"
+        android:layout_marginEnd="@dimen/details_years_margin_end"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_favorite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_favorite"
+        tools:text="24 года" />
+
+    <ImageView
+        android:id="@+id/iv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/details_phone_iv_margin_start"
+        android:layout_marginTop="@dimen/details_phone_iv_margin_top"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_favorite"
+        app:srcCompat="@drawable/ic_phone"
+        android:contentDescription="@string/phone" />
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/details_phone_margin_start"
+        android:textColor="@color/black"
+        android:textSize="@dimen/detail_text_siz_med"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_phone"
+        app:layout_constraintStart_toEndOf="@+id/iv_phone"
+        app:layout_constraintTop_toTopOf="@+id/iv_phone"
+        tools:text="+7 (999)900 90 90" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,4 +6,20 @@
     <dimen name="try_margin">12dp</dimen>
     <dimen name="saucer_size">56dp</dimen>
     <dimen name="search_margin_top">8dp</dimen>
+    <dimen name="detail_header_height">280dp</dimen>
+    <dimen name="img_back_margin">16dp</dimen>
+    <dimen name="detail_img_size">104dp</dimen>
+    <dimen name="details_name_size">24sp</dimen>
+    <dimen name="details_nik_size">17sp</dimen>
+    <dimen name="details_position_size">13sp</dimen>
+    <dimen name="details_position_margin">5dp</dimen>
+    <dimen name="details_nik_margin">5dp</dimen>
+    <dimen name="detail_text_siz_med">16sp</dimen>
+    <dimen name="details_margin_start">5dp</dimen>
+    <dimen name="details_phone_margin_start">5dp</dimen>
+    <dimen name="details_phone_iv_margin_start">16dp</dimen>
+    <dimen name="details_phone_iv_margin_top">24dp</dimen>
+    <dimen name="details_years_margin_end">16dp</dimen>
+    <dimen name="details_favorite_margin_top">24dp</dimen>
+    <dimen name="details_favorite_margin_start">16dp</dimen>
 </resources>
