@@ -19,8 +19,7 @@ fun UsersApi.toUsersDb(): UsersDb {
     return UsersDb(
         id = id,
         avatarUrl = avatarUrl,
-        firstName = firstName,
-        lastName = lastName,
+        name = "$firstName $lastName",
         userTag = userTag,
         department = department,
         position = position,
