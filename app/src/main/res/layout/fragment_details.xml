@@ -24,7 +24,7 @@
         android:contentDescription="@string/back" />
 
     <ImageView
-        android:id="@+id/line_start"
+        android:id="@+id/iv_avatar"
         android:layout_width="@dimen/detail_img_size"
         android:layout_height="@dimen/detail_img_size"
         android:layout_marginTop="@dimen/img_back_margin"
@@ -49,7 +49,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_start"
+        app:layout_constraintTop_toBottomOf="@+id/iv_avatar"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="Алиса Иванова" />
 
@@ -135,4 +135,13 @@
         app:layout_constraintStart_toEndOf="@+id/iv_phone"
         app:layout_constraintTop_toTopOf="@+id/iv_phone"
         tools:text="+7 (999)900 90 90" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

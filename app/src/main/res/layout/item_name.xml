@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/line_start"
+        android:id="@+id/iv_avatar"
         android:layout_width="@dimen/item_img_size"
         android:layout_height="@dimen/item_img_size"
         android:layout_marginVertical="@dimen/item_margin_vert"
@@ -24,7 +24,7 @@
         android:textColor="@color/black"
         android:textSize="@dimen/item_name_size"
         app:layout_constraintBottom_toTopOf="@+id/tv_position"
-        app:layout_constraintStart_toEndOf="@+id/line_start"
+        app:layout_constraintStart_toEndOf="@+id/iv_avatar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="Алиса Иванова" />
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/details_position_margin"
         android:textSize="@dimen/item_pisition_size"
-        app:layout_constraintBottom_toBottomOf="@+id/line_start"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"
         app:layout_constraintStart_toStartOf="@+id/tv_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_name"
         tools:text="Designer" />

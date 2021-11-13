@@ -1,6 +1,7 @@
 package com.kazantsev.coder.di
 
 import com.kazantsev.coder.view.MainActivity
+import com.kazantsev.coder.view.profilefragment.ProfileFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -17,6 +18,7 @@ import javax.inject.Singleton
 )
 interface AppComponent {
     fun inject(fragment: MainActivity)
+    fun inject(fragment: ProfileFragment)
 
     @Component.Builder
     interface Builder {

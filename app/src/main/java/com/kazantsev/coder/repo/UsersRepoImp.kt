@@ -1,5 +1,7 @@
 package com.kazantsev.coder.repo
 
+import com.kazantsev.coder.model.User
+import com.kazantsev.coder.model.toUser
 import com.kazantsev.coder.repo.api.DataSource
 import com.kazantsev.coder.repo.api.model.UsersApi
 import com.kazantsev.coder.repo.api.model.toUsersDb
@@ -26,5 +28,9 @@ class UsersRepoImp(private val api: DataSource, private val db: UsersDatabase) :
 //                    return error(e.message ?: e.toString())
 //        }
 
+    }
+
+    override suspend fun getUser(id: String): User {
+        return db.dao.getUser(id).toUser()
     }
 }

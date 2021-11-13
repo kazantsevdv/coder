@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
-        android:id="@+id/line_start"
+        android:id="@+id/iv_avatar"
         android:layout_width="@dimen/item_img_size"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/item_margin_start"
@@ -35,7 +35,7 @@
         android:layout_marginVertical="@dimen/item_year_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/line_end"
-        app:layout_constraintStart_toEndOf="@+id/line_start"
+        app:layout_constraintStart_toEndOf="@+id/iv_avatar"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="2022" />
 </androidx.constraintlayout.widget.ConstraintLayout>
