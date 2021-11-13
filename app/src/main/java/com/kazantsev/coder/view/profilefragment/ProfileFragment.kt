@@ -1,11 +1,14 @@
 package com.kazantsev.coder.view.profilefragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,6 +35,7 @@ class ProfileFragment : Fragment() {
     private val viewBinding get() = checkNotNull(_viewBinding)
     private val navigation by lazy { findNavController() }
     private val args: ProfileFragmentArgs by navArgs()
+    private var userPhone = ""
 
     @Inject
     lateinit var viewModeProvider: Provider<ProfileViewModel.Factory>
@@ -82,7 +86,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun showSuccess(data: UserProfile) {
-        viewBinding.progressBar.isVisible=false
+        viewBinding.progressBar.isVisible = false
         viewBinding.tvName.text = data.name
         viewBinding.tvNik.text = data.userTag
         viewBinding.tvPosition.text = data.position
@@ -91,20 +95,25 @@ class ProfileFragment : Fragment() {
         viewBinding.tvYears.text =
             this.resources.getQuantityString(R.plurals.plurals_years, data.years, data.years)
         imageLoader.loadInto(data.avatarUrl, viewBinding.ivAvatar)
-
+        userPhone = data.phone
     }
 
     private fun showError(result: AppState.Error<UserProfile>) {
-        viewBinding.progressBar.isVisible=false
+        viewBinding.progressBar.isVisible = false
         Snackbar.make(requireView(), result.message, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun showLoading() {
-        viewBinding.progressBar.isVisible=true
+        viewBinding.progressBar.isVisible = true
     }
 
     private fun setupUI() {
         viewBinding.ivBack.setOnClickListener { navigation.navigateUp() }
+        viewBinding.tvPhone.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:$userPhone")
+            startActivity(intent)
+        }
     }
 
     override fun onDestroy() {
