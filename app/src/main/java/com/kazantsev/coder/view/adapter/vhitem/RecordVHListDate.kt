@@ -58,7 +58,7 @@ class RecordViewHolderBirthday(
         binding.tvPosition.text = item.position
         binding.tvBirthday.text = item.birthday
         imageLoader.loadInto(item.avatarUrl, binding.ivAvatar)
-        binding.root.setOnClickListener { onListItemClickListener.onItemClick(item) }
+        binding.root.setOnClickListener { onListItemClickListener.onItemClick(item.id) }
     }
 
 

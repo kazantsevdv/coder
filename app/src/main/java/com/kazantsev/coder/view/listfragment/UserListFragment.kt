@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.kazantsev.coder.App
 import com.kazantsev.coder.databinding.FragmentListBinding
 import com.kazantsev.coder.repo.image.ImageLoader
@@ -18,6 +19,8 @@ import com.kazantsev.coder.view.adapter.vhitem.RecordDelimiterVHList
 import com.kazantsev.coder.view.adapter.vhitem.RecordVHListDate
 import com.kazantsev.coder.view.adapter.vhitem.RecordVHListName
 import com.kazantsev.coder.view.mainfragment.DataItem
+import com.kazantsev.coder.view.mainfragment.MainFragmentDirections
+import com.kazantsev.coder.view.mainfragment.MainViewModel
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -26,11 +29,12 @@ class UserListFragment : Fragment() {
     private val viewBinding get() = checkNotNull(_viewBinding)
 
     @Inject
-    lateinit var viewModeProvider: Provider<UserListViewModel.Factory>
-    private val viewModel: UserListViewModel by viewModels { viewModeProvider.get() }
+    lateinit var viewModeProvider: Provider<MainViewModel.Factory>
+    private val viewModel: MainViewModel by viewModels { viewModeProvider.get() }
 
     @Inject
     lateinit var imageLoader: ImageLoader<ImageView>
+    private val navigation by lazy { findNavController() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,15 +91,18 @@ class UserListFragment : Fragment() {
 
     private val onListItemClickListener: OnListItemClickListener =
         object : OnListItemClickListener {
-            override fun onItemClick(data: DataItem) {
-
+            override fun onItemClick(id: String) {
+                val direction =
+                    MainFragmentDirections.actionMainFragmentToProfileFragment(id)
+                navigation.navigate(direction)
             }
         }
 
+
     private fun getVhList() = listOf(
         RecordDelimiterVHList(),
-        RecordVHListDate(),
-        RecordVHListName()
+        RecordVHListName(),
+        RecordVHListDate()
     )
 
     override fun onDestroy() {

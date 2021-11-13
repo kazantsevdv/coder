@@ -1,21 +1,28 @@
-package com.kazantsev.coder.view.listfragment
+package com.kazantsev.coder.view.mainfragment
 
 import androidx.lifecycle.*
 import com.kazantsev.coder.model.User
 import com.kazantsev.coder.repo.UsersRepo
-import com.kazantsev.coder.view.mainfragment.DataItem
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
-class UserListViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val repo: UsersRepo,
-) : ViewModel() {
+
+    ) : ViewModel() {
     private var _items: MutableLiveData<List<DataItem>> = MutableLiveData()
     val item: LiveData<List<DataItem>> get() = _items
 
+    private var _department: MutableLiveData<List<Department>> = MutableLiveData()
+    val department: LiveData<List<Department>> get() = _department
+
     init {
         loadFromApi()
+    }
+
+    fun getDepartment() {
+        _department.value = repo.getDepartment()
     }
 
     fun loadFromApi() {
@@ -29,7 +36,7 @@ class UserListViewModel @Inject constructor(
             try {
                 val itemsList: MutableList<DataItem> = mutableListOf()
                 val usersList = repo.getUsers()
-                var filteredList = listOf<User>()
+                val filteredList: List<User>
                 if (department.isNotBlank()) {
                     filteredList = usersList.filter { user -> user.department == department }
                 } else {
@@ -46,6 +53,7 @@ class UserListViewModel @Inject constructor(
                         )
                     )
                 }
+
                 _items.value = itemsList
 
 
@@ -104,11 +112,11 @@ class UserListViewModel @Inject constructor(
 
     @Suppress("UNCHECKED_CAST")
     class Factory @Inject constructor(
-        private val viewModerProvider: Provider<UserListViewModel>
+        private val viewModerProvider: Provider<MainViewModel>
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            require(modelClass == UserListViewModel::class.java)
+            require(modelClass == MainViewModel::class.java)
             return viewModerProvider.get() as T
         }
     }

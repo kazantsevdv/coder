@@ -6,20 +6,21 @@ import com.kazantsev.coder.repo.api.DataSource
 import com.kazantsev.coder.repo.api.model.UsersApi
 import com.kazantsev.coder.repo.api.model.toUsersDb
 import com.kazantsev.coder.repo.db.UsersDatabase
+import com.kazantsev.coder.view.mainfragment.Department
 
 class UsersRepoImp(private val api: DataSource, private val db: UsersDatabase) : UsersRepo {
 
     override suspend fun getUsersFromApi(): List<UsersApi> {
 //        try {
-            val response = api.getUsers()
-            if (response.isSuccessful) {
-                val body = response.body()
-                body?.let {resp->
-                    db.dao.deleteAll()
-                    db.dao.insertUsers(resp.items.map { it.toUsersDb() })
-                    return body.items
-                }
+        val response = api.getUsers()
+        if (response.isSuccessful) {
+            val body = response.body()
+            body?.let { resp ->
+                db.dao.deleteAll()
+                db.dao.insertUsers(resp.items.map { it.toUsersDb() })
+                return body.items
             }
+        }
 
         return listOf()
 //           return error("${response.code()} ${response.message()}")
@@ -36,4 +37,18 @@ class UsersRepoImp(private val api: DataSource, private val db: UsersDatabase) :
     override suspend fun getUsers(): List<User> {
         return db.dao.getAllUsers().map { it.toUser() }
     }
+
+    override fun getDepartment() = listOf<Department>(
+        Department("Все", ""),
+        Department("Android", "android"),
+        Department("iOS", "ios"),
+        Department("Дизайн", "design"),
+        Department("Менеджмент", "management"),
+        Department("QA", "qa"),
+        Department("HR", "hr"),
+        Department("PR", "pr"),
+        Department("Backend", "backend"),
+        Department("Техподдержка", "support"),
+        Department("Аналитика", "analytics")
+    )
 }

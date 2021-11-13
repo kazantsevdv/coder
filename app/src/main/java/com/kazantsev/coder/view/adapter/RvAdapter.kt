@@ -69,5 +69,5 @@ class RvAdapter(
 }
 
 interface OnListItemClickListener {
-    fun onItemClick(data: DataItem)
+    fun onItemClick(id: String)
 }

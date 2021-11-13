@@ -15,7 +15,7 @@ class RecordVHListName : ItemVHList<ItemNameBinding, DataItem.ItemName> {
 
     override fun isRelativeItem(item: DataItem) = item is DataItem.ItemName
 
-    override fun getLayoutId() = R.layout.item_delimiter
+    override fun getLayoutId() = R.layout.item_name
 
     override fun getViewHolder(
         layoutInflater: LayoutInflater,
@@ -51,7 +51,7 @@ class RecordViewHolderName(
         binding.tvNik.text = item.userTag
         binding.tvPosition.text = item.position
         imageLoader.loadInto(item.avatarUrl, binding.ivAvatar)
-        binding.root.setOnClickListener { onListItemClickListener.onItemClick(item) }
+        binding.root.setOnClickListener { onListItemClickListener.onItemClick(item.id) }
     }
 
 
