@@ -125,33 +125,7 @@
             android:text="@string/Try_again"
             android:textAllCaps="false" />
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/lo_no_data"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="visible">
 
-        <ImageView
-            android:layout_width="@dimen/saucer_size"
-            android:layout_height="@dimen/saucer_size"
-            app:srcCompat="@drawable/magnifying_glass"
-            android:contentDescription="@string/glass" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/try_margin"
-            android:text="@string/We_didn"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Try_to_correct" />
-
-    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

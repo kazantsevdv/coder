@@ -24,9 +24,10 @@ class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val direction = MainFragmentDirections.actionMainFragmentToProfileFragment("a2f8e911-67d2-4d1a-8056-b82d45e11a8e")
-        navigation.navigate(direction)
+//        val direction = MainFragmentDirections.actionMainFragmentToProfileFragment("a2f8e911-67d2-4d1a-8056-b82d45e11a8e")
+//        navigation.navigate(direction)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        setupUI()

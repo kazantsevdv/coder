@@ -8,7 +8,6 @@ import com.kazantsev.coder.repo.UsersRepo
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Provider
 
 class MainActivity : AppCompatActivity() {
     @Inject
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         App.component.inject(this)
         GlobalScope.launch {
-            repo.getUsers()
+            repo.getUsersFromApi()
         }
     }
 }

@@ -9,7 +9,7 @@ import com.kazantsev.coder.repo.db.UsersDatabase
 
 class UsersRepoImp(private val api: DataSource, private val db: UsersDatabase) : UsersRepo {
 
-    override suspend fun getUsers(): List<UsersApi> {
+    override suspend fun getUsersFromApi(): List<UsersApi> {
 //        try {
             val response = api.getUsers()
             if (response.isSuccessful) {
@@ -18,7 +18,6 @@ class UsersRepoImp(private val api: DataSource, private val db: UsersDatabase) :
                     db.dao.deleteAll()
                     db.dao.insertUsers(resp.items.map { it.toUsersDb() })
                     return body.items
-
                 }
             }
 
@@ -32,5 +31,9 @@ class UsersRepoImp(private val api: DataSource, private val db: UsersDatabase) :
 
     override suspend fun getUser(id: String): User {
         return db.dao.getUser(id).toUser()
+    }
+
+    override suspend fun getUsers(): List<User> {
+        return db.dao.getAllUsers().map { it.toUser() }
     }
 }

@@ -2,9 +2,7 @@ package com.kazantsev.coder.view.profilefragment
 
 import android.telephony.PhoneNumberUtils
 import androidx.lifecycle.*
-import com.kazantsev.coder.R
 import com.kazantsev.coder.model.AppState
-import com.kazantsev.coder.model.User
 import com.kazantsev.coder.repo.UsersRepo
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -26,7 +24,7 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val user = repo.getUser(id)
-                val userProfile=UserProfile(
+                val userProfile = UserProfile(
                     id = id,
                     avatarUrl = user.avatarUrl,
                     name = user.name,
@@ -34,7 +32,7 @@ class ProfileViewModel @Inject constructor(
                     department = user.department,
                     position = user.position,
                     birthday = getBirthday(user.birthday),
-                    years=getYears(user.birthday),
+                    years = getYears(user.birthday),
                     phone = formatPhone(user.phone)
                 )
                 _data.value = AppState.Success(userProfile)
@@ -56,10 +54,11 @@ class ProfileViewModel @Inject constructor(
     private fun formatPhone(phone: String): String {
         return PhoneNumberUtils.formatNumber("+7$phone", Locale.getDefault().country)
     }
+
     private fun getYears(data: Long): Int {
         val format = DateTimeFormatter.ofPattern(datePattern)
         val today: LocalDate = LocalDate.now()
-        val birthday: LocalDate = LocalDate.parse(getBirthday(data),format)
+        val birthday: LocalDate = LocalDate.parse(getBirthday(data), format)
         val p: Period = Period.between(birthday, today)
         return p.years
 
@@ -75,7 +74,8 @@ class ProfileViewModel @Inject constructor(
             return viewModerProvider.get() as T
         }
     }
-    companion object{
-        const val datePattern="d MMMM yyyy"
+
+    companion object {
+        const val datePattern = "d MMMM yyyy"
     }
 }

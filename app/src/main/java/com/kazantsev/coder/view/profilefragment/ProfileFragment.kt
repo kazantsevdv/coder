@@ -3,12 +3,10 @@ package com.kazantsev.coder.view.profilefragment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.telephony.PhoneNumberUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,14 +17,7 @@ import com.kazantsev.coder.App
 import com.kazantsev.coder.R
 import com.kazantsev.coder.databinding.FragmentDetailsBinding
 import com.kazantsev.coder.model.AppState
-import com.kazantsev.coder.model.User
 import com.kazantsev.coder.repo.image.ImageLoader
-import java.lang.Exception
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.Period
-import java.time.format.DateTimeFormatter
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -45,12 +36,16 @@ class ProfileFragment : Fragment() {
 
     private val viewModel: ProfileViewModel by viewModels { viewModeProvider.get() }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        App.component.inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        App.component.inject(this)
         _viewBinding = FragmentDetailsBinding.inflate(inflater, container, false)
         return viewBinding.root
     }
