@@ -5,30 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/refresh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/find">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabGravity="fill"
-            app:tabMode="auto"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </androidx.viewpager.widget.ViewPager>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="fill"
+                app:tabMode="auto"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </androidx.viewpager.widget.ViewPager>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/find"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,8 +107,8 @@
         <ImageView
             android:layout_width="@dimen/saucer_size"
             android:layout_height="@dimen/saucer_size"
-            app:srcCompat="@drawable/flying_saucer"
-            android:contentDescription="@string/saucer" />
+            android:contentDescription="@string/saucer"
+            app:srcCompat="@drawable/flying_saucer" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -125,7 +130,6 @@
             android:text="@string/Try_again"
             android:textAllCaps="false" />
     </LinearLayout>
-   
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

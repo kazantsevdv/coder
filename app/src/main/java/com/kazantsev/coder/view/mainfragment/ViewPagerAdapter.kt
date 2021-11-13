@@ -9,10 +9,11 @@ import com.kazantsev.coder.view.listfragment.UserListFragment
 class ViewPagerAdapter(fragmentManager: FragmentManager) :
     FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    private var data: List<Department> = listOf()
+    private var data: MutableList<Department> = mutableListOf()
 
     fun setData(data: List<Department>) {
-        this.data = data
+        this.data.clear()
+        this.data.addAll(data)
         notifyDataSetChanged()
 
     }

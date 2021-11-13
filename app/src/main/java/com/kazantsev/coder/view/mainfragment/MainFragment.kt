@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.kazantsev.coder.App
 import com.kazantsev.coder.databinding.FragmentMainBinding
-import com.kazantsev.coder.view.mainfragment.MainViewModel
+import com.kazantsev.coder.model.AppState
+import com.kazantsev.coder.model.User
+import com.kazantsev.coder.view.listfragment.ListViewModel
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -20,7 +23,7 @@ class MainFragment : Fragment() {
 
     @Inject
     lateinit var viewModeProvider: Provider<MainViewModel.Factory>
-    private val viewModel: MainViewModel by viewModels { viewModeProvider.get() }
+    private val viewModel: MainViewModel by viewModels(ownerProducer = { requireActivity()}) { viewModeProvider.get() }
 
     private val adapter: ViewPagerAdapter by lazy { ViewPagerAdapter(childFragmentManager) }
 
@@ -52,6 +55,44 @@ class MainFragment : Fragment() {
                 notifyDataSetChanged()
             }
         })
+        viewModel.loadState.observe(viewLifecycleOwner, {
+            it?.let { result ->
+                when (result) {
+                    is AppState.Success<List<User>> -> {
+                        showSuccess()
+                    }
+                    is AppState.Error -> {
+                        showError(result)
+                    }
+                    is AppState.Loading -> {
+                        showLoading()
+                    }
+                }
+            }
+        })
+    }
+
+    private fun showSuccess() {
+        viewBinding.refresh.isRefreshing=false
+        viewBinding.refresh.isVisible=true
+        viewBinding.loError.isVisible=false
+        viewBinding.find.isVisible=true
+
+    }
+
+    private fun showError(result: AppState.Error<List<User>>) {
+        viewBinding.refresh.isRefreshing=false
+        viewBinding.refresh.isVisible=false
+        viewBinding.loError.isVisible=true
+        viewBinding.find.isVisible=false
+        Snackbar.make(requireView(), result.message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun showLoading() {
+        viewBinding.refresh.isRefreshing=true
+        viewBinding.refresh.isVisible=true
+        viewBinding.loError.isVisible=false
+        viewBinding.find.isVisible=true
     }
 
     private fun loadData() {
@@ -59,9 +100,13 @@ class MainFragment : Fragment() {
     }
 
     private fun setupUI() {
-        viewBinding.viewPager.let {
-            it.adapter = adapter
-            viewBinding.tabLayout.setupWithViewPager(it)
+        viewBinding.viewPager.adapter = adapter
+        viewBinding.tabLayout.setupWithViewPager(viewBinding.viewPager)
+        viewBinding.refresh.setOnRefreshListener {
+            viewModel.loadFromApi()
+        }
+        viewBinding.btTry.setOnClickListener {
+            viewModel.loadFromApi()
         }
     }
 

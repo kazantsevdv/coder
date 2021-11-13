@@ -12,6 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kazantsev.coder.App
 import com.kazantsev.coder.databinding.FragmentListBinding
+import com.kazantsev.coder.model.AppState
+import com.kazantsev.coder.model.User
 import com.kazantsev.coder.repo.image.ImageLoader
 import com.kazantsev.coder.view.adapter.OnListItemClickListener
 import com.kazantsev.coder.view.adapter.RvAdapter
@@ -29,8 +31,12 @@ class UserListFragment : Fragment() {
     private val viewBinding get() = checkNotNull(_viewBinding)
 
     @Inject
-    lateinit var viewModeProvider: Provider<MainViewModel.Factory>
-    private val viewModel: MainViewModel by viewModels { viewModeProvider.get() }
+    lateinit var viewModeProvider: Provider<ListViewModel.Factory>
+    private val viewModel: ListViewModel by viewModels() { viewModeProvider.get() }
+
+    @Inject
+    lateinit var mainViewModeProvider: Provider<MainViewModel.Factory>
+    private val mainViewModel: MainViewModel by viewModels(ownerProducer = { requireActivity() }) { mainViewModeProvider.get() }
 
     @Inject
     lateinit var imageLoader: ImageLoader<ImageView>
@@ -55,7 +61,7 @@ class UserListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
         setupObservers()
-        viewModel.getUser(arguments?.getString(ID_DEPARTMENT) ?: "")
+        loadData()
     }
 
     private fun setupObservers() {
@@ -67,6 +73,20 @@ class UserListFragment : Fragment() {
                 showSuccess(usersList)
             }
         })
+        mainViewModel.loadState.observe(viewLifecycleOwner, {
+            it?.let { result ->
+
+                if (result is AppState.Success<List<User>>) {
+                    loadData()
+                }
+
+
+            }
+        })
+    }
+
+    private fun loadData() {
+        viewModel.getUser(arguments?.getString(ID_DEPARTMENT) ?: "")
     }
 
     private fun showSuccess(usersList: List<DataItem>) {
