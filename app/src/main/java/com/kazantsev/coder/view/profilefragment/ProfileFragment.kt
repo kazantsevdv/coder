@@ -87,8 +87,7 @@ class ProfileFragment : Fragment() {
         viewBinding.tvPosition.text = data.position
         viewBinding.tvBirthday.text = data.birthday
         viewBinding.tvPhone.text = data.phone
-        viewBinding.tvYears.text =
-            this.resources.getQuantityString(R.plurals.plurals_years, data.years, data.years)
+        viewBinding.tvYears.text = data.years
         imageLoader.loadInto(data.avatarUrl, viewBinding.ivAvatar)
         userPhone = data.phone
     }

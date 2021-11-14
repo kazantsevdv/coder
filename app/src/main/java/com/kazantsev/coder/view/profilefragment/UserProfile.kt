@@ -10,7 +10,7 @@ data class UserProfile(
     val department: String,
     val position: String,
     val birthday: String,
-    val years:Int,
+    val years:String,
     val phone: String
 )
 

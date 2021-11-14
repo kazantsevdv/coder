@@ -4,6 +4,7 @@ import android.telephony.PhoneNumberUtils
 import androidx.lifecycle.*
 import com.kazantsev.coder.model.AppState
 import com.kazantsev.coder.repo.UsersRepo
+import com.kazantsev.coder.util.toYearsString
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -32,7 +33,7 @@ class ProfileViewModel @Inject constructor(
                     department = user.department,
                     position = user.position,
                     birthday = getBirthday(user.birthday),
-                    years = getYears(user.birthday),
+                    years = getYears(user.birthday).toYearsString(),
                     phone = formatPhone(user.phone)
                 )
                 _data.value = AppState.Success(userProfile)
