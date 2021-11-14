@@ -34,4 +34,10 @@
     <dimen name="item_birthday_margin_end">20dp</dimen>
     <dimen name="item_year_size">15sp</dimen>
     <dimen name="item_year_margin">24dp</dimen>
+    <dimen name="dialog_radio_margin_top">10dp</dimen>
+    <dimen name="dialog_button_size">16sp</dimen>
+    <dimen name="dialog_radio_group_margin">18dp</dimen>
+    <dimen name="dialog_radio_group_height">218dp</dimen>
+    <dimen name="dialog_header_text_size">20sp</dimen>
+    <dimen name="dialog_header_margin_vertical">10dp</dimen>
 </resources>

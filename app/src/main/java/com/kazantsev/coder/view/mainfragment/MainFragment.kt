@@ -111,7 +111,7 @@ class MainFragment : Fragment() {
         viewBinding.etSearch
             .afterTextChanged(viewModel::onNewQuery)
         viewBinding.etSearch.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus){
+            if (hasFocus) {
                 isSearch()
             }
         }
@@ -124,15 +124,16 @@ class MainFragment : Fragment() {
     }
 
     private fun isSearch() {
-        viewBinding.btSort.isVisible=false
-        viewBinding.btCancel.isVisible=true
+        viewBinding.btSort.isVisible = false
+        viewBinding.btCancel.isVisible = true
 
     }
-    private fun cancelSearch(){
+
+    private fun cancelSearch() {
         viewBinding.etSearch.clearFocus()
         viewBinding.etSearch.setText("")
-        viewBinding.btSort.isVisible=true
-        viewBinding.btCancel.isVisible=false
+        viewBinding.btSort.isVisible = true
+        viewBinding.btCancel.isVisible = false
 
 
         hideKeyboard()
