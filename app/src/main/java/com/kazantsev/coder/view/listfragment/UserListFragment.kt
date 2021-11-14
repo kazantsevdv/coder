@@ -76,11 +76,15 @@ class UserListFragment : Fragment() {
         mainViewModel.loadState.observe(viewLifecycleOwner, {
             it?.let { result ->
 
-                if (result is AppState.Success<List<User>>) {
+                if (result is AppState.Success<Any>) {
                     loadData()
                 }
-
-
+            }
+        })
+        mainViewModel.query.observe(viewLifecycleOwner, {
+            it?.let { result ->
+                viewModel.onNewQuery(result)
+                loadData()
             }
         })
     }

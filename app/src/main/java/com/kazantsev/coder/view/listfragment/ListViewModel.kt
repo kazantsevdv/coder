@@ -13,14 +13,12 @@ import javax.inject.Provider
 class ListViewModel @Inject constructor(
     private val repo: UsersRepo,
 ) : ViewModel() {
+    private var _query: String = ""
     private var _items: MutableLiveData<List<DataItem>> = MutableLiveData()
     val item: LiveData<List<DataItem>> get() = _items
 
     private var _loadState = MutableLiveData<AppState<List<User>>>()
     var loadState: LiveData<AppState<List<User>>> = _loadState
-
-
-
 
 
     fun getUser(department: String) {
@@ -34,7 +32,20 @@ class ListViewModel @Inject constructor(
                 } else {
                     filteredList = usersList
                 }
-                for (user in filteredList) {
+                val queryList: List<User>
+                if (_query.isNotEmpty()) {
+                     queryList = filteredList.filter { user ->
+                        user.name.contains(
+                            _query,
+                            true
+                        ) || user.userTag.contains(_query, true)
+                    }
+                }else{
+                    queryList=filteredList
+                }
+
+
+                for (user in queryList) {
                     itemsList.add(
                         DataItem.ItemName(
                             id = user.id,
@@ -53,6 +64,10 @@ class ListViewModel @Inject constructor(
 
             }
         }
+    }
+
+    fun onNewQuery(query: String) {
+        this._query = query
     }
 //    private var _data = MutableLiveData<AppState<UserProfile>>()
 //    var data: LiveData<AppState<UserProfile>> = _data

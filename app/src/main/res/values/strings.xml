@@ -15,6 +15,7 @@
     <string name="favorite" translatable="false">Favorite</string>
     <string name="phone" translatable="false">Phone</string>
     <string name="line" translatable="false">line</string>
+    <string name="Sorting">Сортировка</string>
     <plurals name="plurals_years">
         <item quantity="one">%1$d год</item>
         <item quantity="two">%1$d года</item>

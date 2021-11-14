@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            // do nothing
+
         }
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -60,9 +60,9 @@ fun Fragment.showKeyboard(view: View) {
 }
 
 fun Int.toYearsString(): String {
-    val years=this
+    val years = this
     val digit = years % 10
-   return when {
+    return when {
         this in 10..14 -> "$years Лет"
         digit == 1 -> "$years Год"
         digit in 2..4 -> "$years Года"

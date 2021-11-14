@@ -11,8 +11,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.kazantsev.coder.App
 import com.kazantsev.coder.databinding.FragmentMainBinding
 import com.kazantsev.coder.model.AppState
-import com.kazantsev.coder.model.User
-import com.kazantsev.coder.view.listfragment.ListViewModel
+import com.kazantsev.coder.util.afterTextChanged
+import com.kazantsev.coder.util.hideKeyboard
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -23,7 +23,7 @@ class MainFragment : Fragment() {
 
     @Inject
     lateinit var viewModeProvider: Provider<MainViewModel.Factory>
-    private val viewModel: MainViewModel by viewModels(ownerProducer = { requireActivity()}) { viewModeProvider.get() }
+    private val viewModel: MainViewModel by viewModels(ownerProducer = { requireActivity() }) { viewModeProvider.get() }
 
     private val adapter: ViewPagerAdapter by lazy { ViewPagerAdapter(childFragmentManager) }
 
@@ -58,7 +58,7 @@ class MainFragment : Fragment() {
         viewModel.loadState.observe(viewLifecycleOwner, {
             it?.let { result ->
                 when (result) {
-                    is AppState.Success<List<User>> -> {
+                    is AppState.Success<Any> -> {
                         showSuccess()
                     }
                     is AppState.Error -> {
@@ -73,26 +73,26 @@ class MainFragment : Fragment() {
     }
 
     private fun showSuccess() {
-        viewBinding.refresh.isRefreshing=false
-        viewBinding.refresh.isVisible=true
-        viewBinding.loError.isVisible=false
-        viewBinding.find.isVisible=true
+        viewBinding.refresh.isRefreshing = false
+        viewBinding.refresh.isVisible = true
+        viewBinding.loError.isVisible = false
+        viewBinding.find.isVisible = true
 
     }
 
-    private fun showError(result: AppState.Error<List<User>>) {
-        viewBinding.refresh.isRefreshing=false
-        viewBinding.refresh.isVisible=false
-        viewBinding.loError.isVisible=true
-        viewBinding.find.isVisible=false
+    private fun showError(result: AppState.Error<Any>) {
+        viewBinding.refresh.isRefreshing = false
+        viewBinding.refresh.isVisible = false
+        viewBinding.loError.isVisible = true
+        viewBinding.find.isVisible = false
         Snackbar.make(requireView(), result.message, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun showLoading() {
-        viewBinding.refresh.isRefreshing=true
-        viewBinding.refresh.isVisible=true
-        viewBinding.loError.isVisible=false
-        viewBinding.find.isVisible=true
+        viewBinding.refresh.isRefreshing = true
+        viewBinding.refresh.isVisible = true
+        viewBinding.loError.isVisible = false
+        viewBinding.find.isVisible = true
     }
 
     private fun loadData() {
@@ -108,6 +108,34 @@ class MainFragment : Fragment() {
         viewBinding.btTry.setOnClickListener {
             viewModel.loadFromApi()
         }
+        viewBinding.etSearch
+            .afterTextChanged(viewModel::onNewQuery)
+        viewBinding.etSearch.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus){
+                isSearch()
+            }
+        }
+        viewBinding.btCancel.setOnClickListener { cancelSearch() }
+        viewBinding.btSort.setOnClickListener { openDialogSort() }
+    }
+
+    private fun openDialogSort() {
+        TODO("Not yet implemented")
+    }
+
+    private fun isSearch() {
+        viewBinding.btSort.isVisible=false
+        viewBinding.btCancel.isVisible=true
+
+    }
+    private fun cancelSearch(){
+        viewBinding.etSearch.clearFocus()
+        viewBinding.etSearch.setText("")
+        viewBinding.btSort.isVisible=true
+        viewBinding.btCancel.isVisible=false
+
+
+        hideKeyboard()
     }
 
     override fun onDestroy() {
