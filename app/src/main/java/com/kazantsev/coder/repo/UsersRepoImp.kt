@@ -1,33 +1,27 @@
 package com.kazantsev.coder.repo
 
+import android.accounts.NetworkErrorException
 import com.kazantsev.coder.model.User
 import com.kazantsev.coder.model.toUser
 import com.kazantsev.coder.repo.api.DataSource
-import com.kazantsev.coder.repo.api.model.UsersApi
 import com.kazantsev.coder.repo.api.model.toUsersDb
 import com.kazantsev.coder.repo.db.UsersDatabase
 import com.kazantsev.coder.view.mainfragment.Department
 
 class UsersRepoImp(private val api: DataSource, private val db: UsersDatabase) : UsersRepo {
 
-    override suspend fun getUsersFromApi(): List<UsersApi> {
-//        try {
+    override suspend fun getUsersFromApi() {
         val response = api.getUsers()
         if (response.isSuccessful) {
             val body = response.body()
             body?.let { resp ->
                 db.dao.deleteAll()
                 db.dao.insertUsers(resp.items.map { it.toUsersDb() })
-                return body.items
             }
+
+        } else {
+            throw NetworkErrorException("Server error")
         }
-
-        return listOf()
-//           return error("${response.code()} ${response.message()}")
-//        } catch (e: Exception) {
-//                    return error(e.message ?: e.toString())
-//        }
-
     }
 
     override suspend fun getUser(id: String): User {
@@ -38,7 +32,7 @@ class UsersRepoImp(private val api: DataSource, private val db: UsersDatabase) :
         return db.dao.getAllUsers().map { it.toUser() }
     }
 
-    override fun getDepartment() = listOf<Department>(
+    override fun getDepartment() = listOf(
         Department("Все", ""),
         Department("Android", "android"),
         Department("iOS", "ios"),

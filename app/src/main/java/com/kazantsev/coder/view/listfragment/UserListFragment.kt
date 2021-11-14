@@ -10,7 +10,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.applySkeleton
 import com.kazantsev.coder.App
+import com.kazantsev.coder.R
 import com.kazantsev.coder.databinding.FragmentListBinding
 import com.kazantsev.coder.model.AppState
 import com.kazantsev.coder.repo.image.ImageLoader
@@ -40,6 +43,7 @@ class UserListFragment : Fragment() {
     @Inject
     lateinit var imageLoader: ImageLoader<ImageView>
     private val navigation by lazy { findNavController() }
+    private lateinit var skeleton: Skeleton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,8 +78,11 @@ class UserListFragment : Fragment() {
         })
         mainViewModel.loadState.observe(viewLifecycleOwner, {
             it?.let { result ->
-
+                if (result is AppState.Refresh) {
+                    skeleton.showSkeleton()
+                }
                 if (result is AppState.Success<Any>) {
+                    skeleton.showOriginal()
                     loadData()
                 }
             }
@@ -99,19 +106,23 @@ class UserListFragment : Fragment() {
     }
 
     private fun showSuccess(usersList: List<DataItem>) {
+        skeleton.showOriginal()
         viewBinding.data.isVisible = true
         viewBinding.loNoData.isVisible = false
         adapterList.submitList(usersList)
     }
 
     private fun showError() {
-        viewBinding.data.isVisible = false
-        viewBinding.loNoData.isVisible = true
-
+        if(!skeleton.isSkeleton()) {
+            viewBinding.data.isVisible = false
+            viewBinding.loNoData.isVisible = true
+        }
     }
 
     private fun setupUI() {
         viewBinding.data.adapter = adapterList
+        skeleton = viewBinding.data.applySkeleton(R.layout.item_name, 10)
+
     }
 
     private val adapterList by lazy(LazyThreadSafetyMode.NONE) {

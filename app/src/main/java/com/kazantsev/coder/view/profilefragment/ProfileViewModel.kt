@@ -1,6 +1,5 @@
 package com.kazantsev.coder.view.profilefragment
 
-import android.telephony.PhoneNumberUtils
 import androidx.lifecycle.*
 import com.kazantsev.coder.model.AppState
 import com.kazantsev.coder.repo.UsersRepo
@@ -53,7 +52,11 @@ class ProfileViewModel @Inject constructor(
     }
 
     private fun formatPhone(phone: String): String {
-        return PhoneNumberUtils.formatNumber("+7$phone", Locale.getDefault().country)
+        return phone.substring(0, 2) +
+                " (" + phone.substring(2, 5) + ") " +
+                phone.substring(5, 8) +
+                " " + phone.substring(8, 10) +
+                " " + phone.substring(10, 12)
     }
 
     private fun getYears(data: Long): Int {

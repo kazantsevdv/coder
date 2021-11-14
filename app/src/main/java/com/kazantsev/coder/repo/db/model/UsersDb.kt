@@ -3,8 +3,6 @@ package com.kazantsev.coder.repo.db.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
-import java.util.*
 
 @Entity(tableName = "users")
 data class UsersDb(

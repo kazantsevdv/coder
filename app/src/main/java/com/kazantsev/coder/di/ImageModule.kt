@@ -5,7 +5,6 @@ import com.kazantsev.coder.repo.image.ImageLoader
 import com.kazantsev.coder.repo.image.ImageLoaderImp
 import dagger.Module
 import dagger.Provides
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module

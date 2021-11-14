@@ -37,11 +37,23 @@ class MainViewModel @Inject constructor(
     fun loadFromApi() {
         viewModelScope.launch {
             try {
-                _loadState.value = AppState.Loading(null)
+                if (repo.getUsers().isNullOrEmpty()) {
+                    _loadState.value = AppState.Refresh()
+                } else {
+                    _loadState.value = AppState.Loading(null)
+                }
                 repo.getUsersFromApi()
                 _loadState.value = AppState.Success(Any())
+
             } catch (exception: Exception) {
-                _loadState.value = AppState.Error(exception.localizedMessage ?: "")
+
+                if (!repo.getUsers().isNullOrEmpty()) {
+                    _loadState.value = AppState.UpdateError(exception.localizedMessage ?: "")
+
+                }else{
+                    _loadState.value = AppState.Error(exception.localizedMessage ?: "")
+                }
+
             }
         }
     }

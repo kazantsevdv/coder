@@ -70,9 +70,23 @@ class MainFragment : Fragment() {
                     is AppState.Loading -> {
                         showLoading()
                     }
+                    is AppState.Refresh -> showLoading()
+                    is AppState.UpdateError -> showMsg(result)
                 }
             }
         })
+        viewModel.sortByBirthday.observe(viewLifecycleOwner, {
+            if (it) {
+                viewBinding.btSort.setImageResource(R.drawable.ic_sort_activ)
+            } else {
+                viewBinding.btSort.setImageResource(R.drawable.ic_sort)
+            }
+        })
+    }
+
+    private fun showMsg(result: AppState.UpdateError<Any>) {
+        viewBinding.refresh.isRefreshing = false
+        Snackbar.make(requireView(), result.message, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun showSuccess() {
@@ -115,7 +129,9 @@ class MainFragment : Fragment() {
             .afterTextChanged(viewModel::onNewQuery)
         viewBinding.etSearch.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                isSearch()
+                beginSearch()
+            } else {
+                cancelSearch()
             }
         }
         viewBinding.btCancel.setOnClickListener { cancelSearch() }
@@ -143,8 +159,9 @@ class MainFragment : Fragment() {
         bottomSheetDialog.show()
     }
 
-    private fun isSearch() {
+    private fun beginSearch() {
         viewBinding.btSort.isVisible = false
+
         viewBinding.btCancel.isVisible = true
 
     }
@@ -155,7 +172,6 @@ class MainFragment : Fragment() {
         viewBinding.btCancel.isVisible = false
         viewBinding.etSearch.setText("")
         viewBinding.etSearch.clearFocus()
-
     }
 
     override fun onDestroy() {

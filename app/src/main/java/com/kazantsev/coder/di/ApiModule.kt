@@ -61,6 +61,7 @@ class ApiModule {
             request = request.newBuilder()
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Prefer", "code=200, example=success")
+                //.addHeader("Prefer", "code=200, dynamic=true")
                 //.addHeader("Prefer", "code=500, example=error-500")
                 .build()
             return chain.proceed(request)

@@ -40,4 +40,5 @@
     <dimen name="dialog_radio_group_height">218dp</dimen>
     <dimen name="dialog_header_text_size">20sp</dimen>
     <dimen name="dialog_header_margin_vertical">10dp</dimen>
+    <dimen name="radius2dp">2dp</dimen>
 </resources>

@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.kazantsev.coder.App
-import com.kazantsev.coder.R
 import com.kazantsev.coder.databinding.FragmentDetailsBinding
 import com.kazantsev.coder.model.AppState
 import com.kazantsev.coder.repo.image.ImageLoader
@@ -74,6 +73,8 @@ class ProfileFragment : Fragment() {
                     is AppState.Loading -> {
                         showLoading()
                     }
+                    is AppState.Refresh -> showLoading()
+                    is AppState.UpdateError -> {}
                 }
             }
         })

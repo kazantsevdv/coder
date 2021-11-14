@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:foreground="?attr/selectableItemBackground"
     android:layout_height="wrap_content">
 
     <ImageView
@@ -23,6 +24,7 @@
         android:layout_marginStart="@dimen/item_name_margin_start"
         android:textColor="@color/black"
         android:textSize="@dimen/item_name_size"
+        android:text="@string/_skeleton"
         app:layout_constraintBottom_toTopOf="@+id/tv_position"
         app:layout_constraintStart_toEndOf="@+id/iv_avatar"
         app:layout_constraintTop_toTopOf="parent"
@@ -46,6 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/details_position_margin"
         android:textSize="@dimen/item_pisition_size"
+        android:text="@string/_skeleton"
         app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"
         app:layout_constraintStart_toStartOf="@+id/tv_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_name"

@@ -1,7 +1,5 @@
 package com.kazantsev.coder.view.profilefragment
 
-import com.kazantsev.coder.repo.db.model.UsersDb
-
 data class UserProfile(
     val id: String,
     val avatarUrl: String,
@@ -10,7 +8,7 @@ data class UserProfile(
     val department: String,
     val position: String,
     val birthday: String,
-    val years:String,
+    val years: String,
     val phone: String
 )
 

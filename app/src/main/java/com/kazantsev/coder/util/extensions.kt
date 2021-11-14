@@ -27,12 +27,6 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
     })
 }
 
-fun View.hideKeyboard() {
-    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(windowToken, 0)
-}
-
-
 fun Activity.hideKeyboard() {
     this.currentFocus?.apply {
         ContextCompat.getSystemService(this@hideKeyboard, InputMethodManager::class.java)
@@ -52,10 +46,6 @@ fun Activity?.showKeyboard(view: View) {
 
 fun Fragment.hideKeyboard() {
     activity?.hideKeyboard()
-}
-
-fun Fragment.showKeyboard(view: View) {
-    activity?.showKeyboard(view)
 }
 
 fun Int.toYearsString(): String {
