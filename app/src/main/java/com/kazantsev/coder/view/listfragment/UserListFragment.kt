@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.kazantsev.coder.App
 import com.kazantsev.coder.databinding.FragmentListBinding
 import com.kazantsev.coder.model.AppState
-import com.kazantsev.coder.model.User
 import com.kazantsev.coder.repo.image.ImageLoader
 import com.kazantsev.coder.view.adapter.OnListItemClickListener
 import com.kazantsev.coder.view.adapter.RvAdapter
@@ -32,7 +31,7 @@ class UserListFragment : Fragment() {
 
     @Inject
     lateinit var viewModeProvider: Provider<ListViewModel.Factory>
-    private val viewModel: ListViewModel by viewModels() { viewModeProvider.get() }
+    private val viewModel: ListViewModel by viewModels { viewModeProvider.get() }
 
     @Inject
     lateinit var mainViewModeProvider: Provider<MainViewModel.Factory>
@@ -84,6 +83,12 @@ class UserListFragment : Fragment() {
         mainViewModel.query.observe(viewLifecycleOwner, {
             it?.let { result ->
                 viewModel.onNewQuery(result)
+                loadData()
+            }
+        })
+        mainViewModel.sortByBirthday.observe(viewLifecycleOwner, {
+            it?.let { result ->
+                viewModel.setBirthdaySort(result)
                 loadData()
             }
         })

@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.kazantsev.coder.App
+import com.kazantsev.coder.R
+import com.kazantsev.coder.databinding.DialogSortBinding
 import com.kazantsev.coder.databinding.FragmentMainBinding
 import com.kazantsev.coder.model.AppState
 import com.kazantsev.coder.util.afterTextChanged
@@ -120,7 +123,24 @@ class MainFragment : Fragment() {
     }
 
     private fun openDialogSort() {
-        TODO("Not yet implemented")
+
+        val binding = DialogSortBinding.inflate(LayoutInflater.from(context))
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        bottomSheetDialog.setContentView(binding.root)
+        viewModel.sortByBirthday.observe(viewLifecycleOwner, {
+            if (it) {
+                binding.birthday.isChecked = true
+            } else {
+                binding.alphabetically.isChecked = true
+            }
+        })
+        binding.rgSorting.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.alphabetically -> viewModel.setBirthdaySort(false)
+                R.id.birthday -> viewModel.setBirthdaySort(true)
+            }
+        }
+        bottomSheetDialog.show()
     }
 
     private fun isSearch() {
@@ -130,13 +150,12 @@ class MainFragment : Fragment() {
     }
 
     private fun cancelSearch() {
-        viewBinding.etSearch.clearFocus()
-        viewBinding.etSearch.setText("")
+        hideKeyboard()
         viewBinding.btSort.isVisible = true
         viewBinding.btCancel.isVisible = false
+        viewBinding.etSearch.setText("")
+        viewBinding.etSearch.clearFocus()
 
-
-        hideKeyboard()
     }
 
     override fun onDestroy() {

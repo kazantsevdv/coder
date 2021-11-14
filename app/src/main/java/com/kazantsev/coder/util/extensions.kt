@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
+            // do nothing
         }
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -36,7 +36,6 @@ fun View.hideKeyboard() {
 fun Activity.hideKeyboard() {
     this.currentFocus?.apply {
         ContextCompat.getSystemService(this@hideKeyboard, InputMethodManager::class.java)
-//        (getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
             ?.hideSoftInputFromWindow(windowToken, 0)
     }
 }

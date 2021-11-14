@@ -20,8 +20,11 @@ class MainViewModel @Inject constructor(
     private var _department: MutableLiveData<List<Department>> = MutableLiveData()
     val department: LiveData<List<Department>> get() = _department
 
-    private var _query  : MutableLiveData<String> = MutableLiveData()
+    private var _query: MutableLiveData<String> = MutableLiveData()
     val query: LiveData<String> get() = _query
+
+    private var _sortByBirthday: MutableLiveData<Boolean> = MutableLiveData()
+    val sortByBirthday: LiveData<Boolean> get() = _sortByBirthday
 
     init {
         loadFromApi()
@@ -44,7 +47,11 @@ class MainViewModel @Inject constructor(
     }
 
     fun onNewQuery(query: String) {
-        this._query.value=query
+        this._query.value = query
+    }
+
+    fun setBirthdaySort(sort: Boolean) {
+        _sortByBirthday.value = sort
     }
 
 
@@ -59,7 +66,4 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    companion object {
-        const val datePattern = "d MMMM yyyy"
-    }
 }
