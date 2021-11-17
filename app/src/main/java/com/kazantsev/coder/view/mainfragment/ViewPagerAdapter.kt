@@ -1,16 +1,17 @@
 package com.kazantsev.coder.view.mainfragment
 
+import android.annotation.SuppressLint
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.kazantsev.coder.view.listfragment.UserListFragment
 
 
-class ViewPagerAdapter(fragmentManager: FragmentManager) :
-    FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class ViewPagerAdapter(fragment: Fragment) :
+        FragmentStateAdapter(fragment) {
 
     private var data: MutableList<Department> = mutableListOf()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(data: List<Department>) {
         this.data.clear()
         this.data.addAll(data)
@@ -18,19 +19,18 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) :
 
     }
 
-    private fun createFragment(department: Int): Fragment =
-        UserListFragment.newInstance(data[department].apiDepartment)
-
-    override fun getCount(): Int {
+    override fun getItemCount(): Int {
         return data.size
     }
 
-    override fun getItem(position: Int): Fragment {
-       return createFragment(position)
-    }
+    fun getTabName(pos: Int) = data[pos].tabDepartment
 
-    override fun getPageTitle(position: Int) =data[position].tabDepartment
-    }
+    override fun createFragment(department: Int): Fragment =
+            UserListFragment.newInstance(data[department].apiDepartment)
+}
+
+
+
 
 
 

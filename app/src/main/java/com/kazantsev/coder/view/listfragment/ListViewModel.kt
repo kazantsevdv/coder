@@ -5,7 +5,9 @@ import androidx.lifecycle.*
 import com.kazantsev.coder.model.User
 import com.kazantsev.coder.repo.UsersRepo
 import com.kazantsev.coder.view.mainfragment.DataItem
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -14,7 +16,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 class ListViewModel @Inject constructor(
-    private val repo: UsersRepo,
+        private val repo: UsersRepo,
 ) : ViewModel() {
     private var _query: String = ""
     private var _sortByBirthday = false
@@ -24,69 +26,73 @@ class ListViewModel @Inject constructor(
     fun getUser(department: String) {
         val itemsList: MutableList<DataItem> = mutableListOf()
         viewModelScope.launch {
-            try {
-                val usersList = repo.getUsers()
+            _items.value = withContext(Dispatchers.Default) {
 
-                val filteredList: List<User> = if (department.isNotBlank()) {
-                    usersList.filter { user -> user.department == department }
-                } else {
-                    usersList
-                }
+                try {
+                    val usersList = repo.getUsers()
 
-                val queryList: List<User> = if (_query.isNotEmpty()) {
-                    filteredList.filter { user ->
-                        user.name.contains(
-                            _query,
-                            true
-                        ) || user.userTag.contains(_query, true)
+                    val filteredList: List<User> = if (department.isNotBlank()) {
+                        usersList.filter { user -> user.department == department }
+                    } else {
+                        usersList
                     }
-                } else {
-                    filteredList
-                }
 
-                val sortedList: List<User> = if (_sortByBirthday) {
-                    queryList.sortedWith(compareBy { dayBeforeBirthday(it.birthday) })
-                } else {
-                    queryList
-                }
-                if (!_sortByBirthday) {
-                    for (user in sortedList) {
-                        itemsList.add(
-                            DataItem.ItemName(
-                                id = user.id,
-                                avatarUrl = user.avatarUrl,
-                                name = user.name,
-                                userTag = user.userTag,
-                                position = user.position
-                            )
-                        )
-                    }
-                } else {
-                    var isDelimiterInserted = false
-                    for (user in sortedList) {
-                        if (!isDelimiterInserted && birthdayIsNextYear(user.birthday)) {
-                            itemsList.add(DataItem.Delimiter(nextYear().toString()))
-                            isDelimiterInserted = true
+                    val queryList: List<User> = if (_query.isNotEmpty()) {
+                        filteredList.filter { user ->
+                            user.name.contains(
+                                    _query,
+                                    true
+                            ) || user.userTag.contains(_query, true)
                         }
-                        itemsList.add(
-                            DataItem.ItemBirthday(
-                                id = user.id,
-                                avatarUrl = user.avatarUrl,
-                                name = user.name,
-                                userTag = user.userTag,
-                                position = user.position,
-                                birthday = getBirthday(user.birthday, datePatternView)
-                            )
-                        )
+                    } else {
+                        filteredList
                     }
 
+                    val sortedList: List<User> = if (_sortByBirthday) {
+                        queryList.sortedWith(compareBy { dayBeforeBirthday(it.birthday) })
+                    } else {
+                        queryList
+                    }
+                    if (!_sortByBirthday) {
+                        for (user in sortedList) {
+                            itemsList.add(
+                                    DataItem.ItemName(
+                                            id = user.id,
+                                            avatarUrl = user.avatarUrl,
+                                            name = user.name,
+                                            userTag = user.userTag,
+                                            position = user.position
+                                    )
+                            )
+                        }
+                    } else {
+                        var isDelimiterInserted = false
+                        for (user in sortedList) {
+                            if (!isDelimiterInserted && birthdayIsNextYear(user.birthday)) {
+                                itemsList.add(DataItem.Delimiter(nextYear().toString()))
+                                isDelimiterInserted = true
+                            }
+                            itemsList.add(
+                                    DataItem.ItemBirthday(
+                                            id = user.id,
+                                            avatarUrl = user.avatarUrl,
+                                            name = user.name,
+                                            userTag = user.userTag,
+                                            position = user.position,
+                                            birthday = getBirthday(user.birthday, datePatternView)
+                                    )
+                            )
+                        }
+
+                    }
+                    itemsList
+
+
+                } catch (exception: Exception) {
+                    listOf<DataItem>()
                 }
-                _items.value = itemsList
-
-
-            } catch (exception: Exception) {
-                Log.d("111", exception.localizedMessage ?: "")
             }
+
         }
     }
 
@@ -105,7 +111,7 @@ class ListViewModel @Inject constructor(
 
         val today: LocalDate = LocalDate.now()
         val tBirthDay: LocalDate =
-            LocalDate.parse(getBirthday(data, datePattern), format).withYear(today.year)
+                LocalDate.parse(getBirthday(data, datePattern), format).withYear(today.year)
 
         var dayBeforeBirthday = tBirthDay.dayOfYear - today.dayOfYear
         if (dayBeforeBirthday < 0) {
@@ -135,7 +141,7 @@ class ListViewModel @Inject constructor(
 
     @Suppress("UNCHECKED_CAST")
     class Factory @Inject constructor(
-        private val viewModerProvider: Provider<ListViewModel>
+            private val viewModerProvider: Provider<ListViewModel>
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 import com.kazantsev.coder.App
 import com.kazantsev.coder.R
 import com.kazantsev.coder.databinding.DialogSortBinding
@@ -28,7 +29,7 @@ class MainFragment : Fragment() {
     lateinit var viewModeProvider: Provider<MainViewModel.Factory>
     private val viewModel: MainViewModel by viewModels(ownerProducer = { requireActivity() }) { viewModeProvider.get() }
 
-    private val adapter: ViewPagerAdapter by lazy { ViewPagerAdapter(childFragmentManager) }
+    private lateinit var  adapter: ViewPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +56,7 @@ class MainFragment : Fragment() {
         viewModel.department.observe(viewLifecycleOwner, {
             adapter.apply {
                 setData(it)
-                notifyDataSetChanged()
+
             }
         })
         viewModel.loadState.observe(viewLifecycleOwner, {
@@ -117,8 +118,12 @@ class MainFragment : Fragment() {
     }
 
     private fun setupUI() {
+        adapter=ViewPagerAdapter(this)
         viewBinding.viewPager.adapter = adapter
-        viewBinding.tabLayout.setupWithViewPager(viewBinding.viewPager)
+        TabLayoutMediator(viewBinding.tabLayout, viewBinding.viewPager) { tab, position ->
+            tab.text = adapter.getTabName(position)
+        }.attach()
+
         viewBinding.refresh.setOnRefreshListener {
             viewModel.loadFromApi()
         }
